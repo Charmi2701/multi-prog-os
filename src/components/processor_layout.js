@@ -5,21 +5,21 @@ const ProcessorLayout = () => {
     const [noOfInstructions, setNoOfInstructions] = useState(0);
     const InputFields = () => {
         let fields = [];
+        const handleSelect = (e) => {
+            e.preventDefault();
+            //console.log(e);
+        }
+        const handleChange = (e) => {
+            e.preventDefault();
+            //console.log(e);
+        }
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            //console.log(e);
+            setNoOfInstructions(noOfInstructions+1);
+        }
         for(let i = 0; i <= noOfInstructions; i++) {
             //console.log("Hello World");
-            const handleSelect = (e) => {
-                e.preventDefault();
-                //console.log(e);
-            }
-            const handleChange = (e) => {
-                e.preventDefault();
-                //console.log(e);
-            }
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                //console.log(e);
-                setNoOfInstructions(noOfInstructions+1);
-            }
             fields.push(
                     <Form.Group 
                      controlId="inputInstructions"
@@ -69,6 +69,7 @@ const ProcessorLayout = () => {
             <Form>
                 {fields}
                 <Button variant="outline-danger" onClick={() => {setNoOfInstructions(0)}}>Reset</Button>
+                <Button variant="outline-success" style={{marginLeft:10}}>Submit</Button>
             </Form>);
     }
     return (
