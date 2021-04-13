@@ -9,7 +9,7 @@ const MemoryLayout = () => {
         for(let i = 0; i < x; i++) {
             block.push(
                 <td>
-                    A
+                    -
                 </td>
             )
         }
