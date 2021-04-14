@@ -5,29 +5,36 @@ import { addInput } from '../actions/input_actions';
 
 const ProcessorLayout = (props) => {
     console.log(props);
+    var commands = [];
+    var addresses = [];
+    const {inputs} = props;
     const [noOfInstructions, setNoOfInstructions] = useState(0);
-    var inputInstruction = [];
-    var inputAddress = [];
     const InputFields = () => {
         let fields = [];
         const handleSelect = (e, i) => {
             e.preventDefault();
-            //console.log(i);
-            inputInstruction[i] = e.target.value;
-            console.log(i);
-            console.log(inputInstruction[i]);
-        }
-        const handleChange = (e) => {
-            e.preventDefault();
+            commands[i] = e.target.value;
             //console.log(e);
         }
-        const handleSubmit = (e) => {
+        const handleChange = (e, i) => {
+            e.preventDefault();
+            addresses[i] = e.target.value;
+            //console.log(e);
+        }
+        const handleAddSubmit = (e, i) => {
             e.preventDefault();
             //console.log(e);
             if(e) {
-                props.addInput({value: 0});
+                props.addInput({i: i});
             }
             setNoOfInstructions(noOfInstructions+1);
+        }
+        const handleChangeSubmit = (e, i) => {
+            e.preventDefault();
+            //console.log(e);
+            if(e) {
+                props.addInput({i: i});
+            }
         }
         for(let i = 0; i <= noOfInstructions; i++) {
             //console.log("Hello World");
@@ -44,7 +51,7 @@ const ProcessorLayout = (props) => {
                          onChange={(e) => handleSelect(e, i)}
                          inline
                          defaultValue="GD"
-                         value={inputInstruction[i]}
+                         value={inputs.instruction[i]}
                         >
                             <option>GD</option>
                             <option>PD</option>
@@ -56,7 +63,7 @@ const ProcessorLayout = (props) => {
                         </Form.Control>
                         <FormControl 
                          aria-describedby="basic-addon1" 
-                         onChange={handleChange}
+                         onChange={(e) => handleChange(e, i)}
                          placeholder="Address/Location (if applicable)"
                          inline
                          style={{width:175}}
@@ -66,12 +73,20 @@ const ProcessorLayout = (props) => {
                                 <Button 
                                 variant="outline-secondary" 
                                 style={{width:60}}
-                                onClick={handleSubmit}
+                                onClick={(e) => handleAddSubmit(e, i)}
                                 >
                                     Add
                                 </Button>
                             </InputGroup.Append>) : (
-                                <span style={{width:60}}>{}</span>
+                                <InputGroup.Append>
+                                <Button 
+                                variant="outline-secondary" 
+                                style={{width:60, fontSize:12}}
+                                onClick={(e) => handleChangeSubmit(e, i)}
+                                >
+                                    Change
+                                </Button>
+                            </InputGroup.Append>
                             )
                         }
                         </InputGroup>

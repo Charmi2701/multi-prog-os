@@ -1,5 +1,5 @@
 const initState = {
-    instruction: ['GD'],
+    instruction: ['PD'],
     address: [10]
 }
 const inputReducer = (state = initState, action) => {
