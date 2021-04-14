@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { addInput } from '../actions/input_actions';
+import { addInput, reset } from '../actions/input_actions';
 
 const ProcessorLayout = (props) => {
     console.log(props);
@@ -13,28 +13,34 @@ const ProcessorLayout = (props) => {
         let fields = [];
         const handleSelect = (e, i) => {
             e.preventDefault();
-            commands[i] = e.target.value;
+            //commands[i] = e.target.value;
+            //console.log(inputs.address[i])
+            props.addInput({i: i, command: e.target.value, address: inputs.address[i]});
             //console.log(e);
         }
         const handleChange = (e, i) => {
             e.preventDefault();
-            addresses[i] = e.target.value;
-            //console.log(e);
+            addresses[i] = parseInt(e.target.value);
+            if(e.target.value !== "") {
+                props.addInput({i: i, address: parseInt(e.target.value), command: inputs.instruction[i]});
+            } else {
+                props.addInput({i: i, address: "", command: inputs.instruction[i]});
+            }
+            console.log(e);
         }
         const handleAddSubmit = (e, i) => {
             e.preventDefault();
             //console.log(e);
-            if(e) {
-                props.addInput({i: i});
-            }
+            //console.log({i: i, command: commands[i], address: addresses[i]})
+            //props.addInput({i: i, command: commands[i], address: addresses[i]});
+            //props.addInput({i: i, address: addresses[i], command: inputs.instruction[i]});
+            addresses[i+1] = ""
             setNoOfInstructions(noOfInstructions+1);
         }
         const handleChangeSubmit = (e, i) => {
             e.preventDefault();
             //console.log(e);
-            if(e) {
-                props.addInput({i: i});
-            }
+            //props.addInput({i: i, address: addresses[i], command: inputs.instruction[i]});
         }
         for(let i = 0; i <= noOfInstructions; i++) {
             //console.log("Hello World");
@@ -52,6 +58,7 @@ const ProcessorLayout = (props) => {
                          inline
                          defaultValue="GD"
                          value={inputs.instruction[i]}
+                         disabled={i === noOfInstructions ? false : true}
                         >
                             <option>GD</option>
                             <option>PD</option>
@@ -67,6 +74,9 @@ const ProcessorLayout = (props) => {
                          placeholder="Address/Location (if applicable)"
                          inline
                          style={{width:175}}
+                         defaultValue=""
+                         value={inputs.address[i]}
+                         disabled={i === noOfInstructions ? false : true}
                         />
                         {noOfInstructions === i ? (
                             <InputGroup.Append>
@@ -78,15 +88,7 @@ const ProcessorLayout = (props) => {
                                     Add
                                 </Button>
                             </InputGroup.Append>) : (
-                                <InputGroup.Append>
-                                <Button 
-                                variant="outline-secondary" 
-                                style={{width:60, fontSize:12}}
-                                onClick={(e) => handleChangeSubmit(e, i)}
-                                >
-                                    Change
-                                </Button>
-                            </InputGroup.Append>
+                                <span style={{width:60}}> </span>
                             )
                         }
                         </InputGroup>
@@ -96,7 +98,7 @@ const ProcessorLayout = (props) => {
         return (
             <Form>
                 {fields}
-                <Button variant="outline-danger" onClick={() => {setNoOfInstructions(0)}}>Reset</Button>
+                <Button variant="outline-danger" onClick={() => {setNoOfInstructions(0); props.reset();}}>Reset</Button>
                 <Button variant="outline-success" style={{marginLeft:10}}>Submit</Button>
             </Form>);
     }
@@ -114,7 +116,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addInput : (data) => dispatch(addInput(data))
+        addInput : (data) => dispatch(addInput(data)),
+        reset : (data) => dispatch(reset(data)),
     }
 }
 
