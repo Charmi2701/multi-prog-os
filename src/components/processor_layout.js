@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
 import { Form, FormControl, InputGroup, Button } from 'react-bootstrap';
+import {connect} from 'react-redux';
+import { addInput } from '../actions/input_actions';
 
-const ProcessorLayout = () => {
+const ProcessorLayout = (props) => {
+    console.log(props);
     const [noOfInstructions, setNoOfInstructions] = useState(0);
+    var inputInstruction = [];
+    var inputAddress = [];
     const InputFields = () => {
         let fields = [];
-        const handleSelect = (e) => {
+        const handleSelect = (e, i) => {
             e.preventDefault();
-            //console.log(e);
+            //console.log(i);
+            inputInstruction[i] = e.target.value;
+            console.log(i);
+            console.log(inputInstruction[i]);
         }
         const handleChange = (e) => {
             e.preventDefault();
@@ -16,6 +24,9 @@ const ProcessorLayout = () => {
         const handleSubmit = (e) => {
             e.preventDefault();
             //console.log(e);
+            if(e) {
+                props.addInput({value: 0});
+            }
             setNoOfInstructions(noOfInstructions+1);
         }
         for(let i = 0; i <= noOfInstructions; i++) {
@@ -30,8 +41,10 @@ const ProcessorLayout = () => {
                          as="select"
                          custom
                          title="Select Instruction"
-                         onSelect={handleSelect}
+                         onChange={(e) => handleSelect(e, i)}
                          inline
+                         defaultValue="GD"
+                         value={inputInstruction[i]}
                         >
                             <option>GD</option>
                             <option>PD</option>
@@ -80,4 +93,14 @@ const ProcessorLayout = () => {
     );
 }
 
-export default ProcessorLayout
+const mapStateToProps = (state) => ({
+    inputs: state.inputs,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addInput : (data) => dispatch(addInput(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProcessorLayout);
