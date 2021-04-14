@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Row, Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 
 const MemoryLayout = () => {
-    const [rowNo, setRowNo] = useState(0);
+    //const [rowNo, setRowNo] = useState(0);
+    var rowNo = 0
     const Block = () => {
         var x = 4;
         let block = [];
@@ -58,6 +59,44 @@ const MemoryLayout = () => {
         );
     }
         return (
+            <>
+            <div style={{margin:10, borderStyle:'solid', padding:10, borderColor:'#D9A63F'}}>
+                <p style={{fontWeight:'bold'}}>Registers : </p>
+                <Table striped bordered hover responsive size="sm">
+                   <tbody style={{width:200}}>
+                       <tr>
+                           <th style={{width:150}}>R</th>
+                           <td style={{width:150}}> </td>
+                           <td style={{width:150}}> </td>
+                           <td style={{width:150}}> </td>
+                       </tr>
+                   </tbody>
+               </Table>
+               <Table striped bordered hover responsive size="sm">
+                   <tbody>
+                       <tr>
+                           <th style={{width:150}}>IR</th>
+                           <td style={{width:150}}> </td>
+                           <td style={{width:150}}> </td>
+                           <td style={{width:150}}> </td>
+                       </tr>
+                   </tbody>
+               </Table>
+               <Table striped bordered hover responsive size="sm" style={{width:300}}>
+                   <tbody>
+                       <tr>
+                           <th style={{width:150}}>IC</th>
+                           <td style={{width:150}}> </td>
+                       </tr>
+                   </tbody>
+                   <tbody>
+                       <tr>
+                           <th style={{width:150}}>C</th>
+                           <td style={{width:150}}> </td>
+                       </tr>
+                   </tbody>
+               </Table>
+            </div>
             <div style={{margin:10, borderStyle:'solid', padding:10, borderColor:'#D9A63F'}}>
                 <p style={{fontWeight:'bold'}}>Memory : </p>
                 <Table striped bordered hover responsive size="sm">
@@ -66,6 +105,7 @@ const MemoryLayout = () => {
                    </tbody>
                </Table>
             </div>
+            </>
         )
 }
 
