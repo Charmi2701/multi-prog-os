@@ -1,13 +1,12 @@
 import React from 'react'
-import {Nav, Navbar, NavLink} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import {Navbar} from 'react-bootstrap';
 import logo from '../assets/ty52.png';
 
 function MOSNavbar() {
     return (
         <>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">
+                <Navbar.Brand href="/">
                 <img
                     alt=""
                     src={logo}

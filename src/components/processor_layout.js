@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dropdown, DropdownButton, Form, FormControl, InputGroup, Button } from 'react-bootstrap';
+import { Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 
 const ProcessorLayout = () => {
     const [noOfInstructions, setNoOfInstructions] = useState(0);
