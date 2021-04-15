@@ -26,7 +26,7 @@ const ProcessorLayout = (props) => {
             } else {
                 props.addInput({i: i, address: "", command: inputs.instruction[i]});
             }
-            console.log(e);
+            //console.log(e);
         }
         const handleAddSubmit = (e, i) => {
             e.preventDefault();
@@ -103,10 +103,16 @@ const ProcessorLayout = (props) => {
             </Form>);
     }
     return (
+        <>
         <div style={{margin:10, borderStyle:'solid', padding:10, borderColor:'#D9A63F'}}>
-            <p style={{fontWeight:'bold'}}>Input : </p>
+            <p style={{fontWeight:'bold'}}>Input Instructions: </p>
             <InputFields />
         </div>
+        <div style={{margin:10, borderStyle:'solid', padding:10, borderColor:'#D9A63F'}}>
+            <p style={{fontWeight:'bold'}}>Input Data: </p>
+            
+        </div>
+        </>
     );
 }
 
