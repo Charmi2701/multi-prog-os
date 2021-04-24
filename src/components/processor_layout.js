@@ -1,7 +1,21 @@
 import React, { useState } from 'react'
-import { Form, FormControl, InputGroup, Button } from 'react-bootstrap';
+import { Form, FormControl, InputGroup, Button, Alert } from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { addInput, reset } from '../actions/input_actions';
+import { addInput, reset, setDataInMemory } from '../actions/input_actions';
+
+const AddressAlert = (props) => {
+    const [show, setShow] = useState(props.show);
+    if(show) {
+        return (
+            <Alert variant="danger" onClose={() => {reset()}} dismissible>
+                <Alert.Heading>No Address Provided</Alert.Heading>
+                <p>An address should be provided with this instruction. Please rewrite the program correctly</p>
+            </Alert>
+        )
+    } else {
+        return (<></>)
+    }
+}
 
 const ProcessorLayout = (props) => {
     console.log(props);
@@ -9,6 +23,33 @@ const ProcessorLayout = (props) => {
     var addresses = [];
     const {inputs} = props;
     const [noOfInstructions, setNoOfInstructions] = useState(0);
+    const InputDataField = () => {
+        const [data, setData] = useState("");
+        const handleChange = (e) => {
+            e.preventDefault();
+            //console.log(e.target.value);
+            setData(e.target.value);
+        }
+        const handleClick = (e) => {
+            e.preventDefault();
+            console.log(data);
+            console.log(data.split("\n"));
+            props.setDataInMemory({data: data.split("\n")});
+        }
+        return(
+            <>
+                <FormControl
+                as="textarea"
+                rows="9"
+                placeholder="Input data"
+                aria-label="Input data"
+                onChange={handleChange}
+                style={{marginBottom:10}}
+                />
+                <Button variant="outline-success" onClick={handleClick}>Submit</Button>
+            </>
+        )
+    }
     const InputFields = () => {
         let fields = [];
         const handleSelect = (e, i) => {
@@ -45,12 +86,13 @@ const ProcessorLayout = (props) => {
         for(let i = 0; i <= noOfInstructions; i++) {
             //console.log("Hello World");
             fields.push(
-                    <Form.Group 
-                     controlId="inputInstructions"
-                     key={i}
-                    >
-                     <InputGroup className="mb-3" custom>
+                <Form.Group 
+                 controlId={"inputInstruction"+toString(i)}
+                 key={i}
+                >
+                    <InputGroup className="mb-3" custom>
                         <Form.Control
+                         aria-describedby="select-inst"
                          as="select"
                          custom
                          title="Select Instruction"
@@ -69,7 +111,7 @@ const ProcessorLayout = (props) => {
                             <option>H</option>
                         </Form.Control>
                         <FormControl 
-                         aria-describedby="basic-addon1" 
+                         aria-describedby="enter-address" 
                          onChange={(e) => handleChange(e, i)}
                          placeholder="Address/Location (if applicable)"
                          inline
@@ -79,6 +121,7 @@ const ProcessorLayout = (props) => {
                          disabled={i === noOfInstructions ? false : true}
                         />
                         {noOfInstructions === i ? (
+                            <>
                             <InputGroup.Append>
                                 <Button 
                                 variant="outline-secondary" 
@@ -87,12 +130,15 @@ const ProcessorLayout = (props) => {
                                 >
                                     Add
                                 </Button>
-                            </InputGroup.Append>) : (
+                            </InputGroup.Append>
+                            <AddressAlert show={inputs.addressAlert} reset={props.reset}/>
+                            </>
+                            ) : (
                                 <span style={{width:60}}> </span>
                             )
                         }
-                        </InputGroup>
-                    </Form.Group>
+                    </InputGroup>
+                </Form.Group>
             );
         }
         return (
@@ -110,7 +156,7 @@ const ProcessorLayout = (props) => {
         </div>
         <div style={{margin:10, borderStyle:'solid', padding:10, borderColor:'#D9A63F'}}>
             <p style={{fontWeight:'bold'}}>Input Data: </p>
-            
+            <InputDataField />
         </div>
         </>
     );
@@ -124,6 +170,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addInput : (data) => dispatch(addInput(data)),
         reset : (data) => dispatch(reset(data)),
+        setDataInMemory: (data) => dispatch(setDataInMemory(data)),
+
     }
 }
 
