@@ -1,11 +1,27 @@
+import jQuery from 'jquery'
+
 const initState = {
+    instruction: ['GD'],
+    address: [""],
+    memory: Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => ["-","-","-","-"])),
+    memoryStatus: [1,1,0,0,0,0,0,0,0,0],
+    dataLines: 0,
+    dataPointer: [1,0,1],
+    addressAlert: false,
+    inputData: [],
+}
+
+const resetState = {
     instruction: ['GD'],
     address: [""],
     memory: Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => ["-","-","-","-"])),
     memoryStatus: [1,1,0,0,0,0,0,0,0,0],
     instPointer: [0,0,0],
     dataPointer: [1,0,1],
+    addressAlert: false,
+    inputData: [],
 }
+
 const inputReducer = (state = initState, action) => {
     switch(action.type) {
         case 'Add Input':
@@ -29,7 +45,7 @@ const inputReducer = (state = initState, action) => {
                 state.memory[x][y][2] = action.address > 10 ?(action.address/10 ? action.address/10 : "-") : "";
                 //state.instPointer[2] += 1;
                 state.memory[x][y][3] = action.address > 10 ? (action.address%10 ? action.address%10 : 0) : action.address;
-
+                state.dataPointer[0] = x + 1;
                 // state.instPointer[2] = 0;
             }
             return {
@@ -45,9 +61,22 @@ const inputReducer = (state = initState, action) => {
                     ...state.address.slice(action.i+1)
                 ],
             };
+        case 'DATA_TO_MEMORY':
+            console.log('Adding data to memory');
+            return {
+                ...state,
+                inputData: action.data
+            }
+        case 'ADD_NOT_FOUND':
+            console.log('Address Not Found');
+            return {
+                ...state,
+                addressAlert: true
+            };
         case 'Reset':
             console.log('Reset')
-            return initState;
+            //console.log(initState);
+            return jQuery.extend(true, {}, resetState);
         default:
             console.log('Input reducer')
             return state;

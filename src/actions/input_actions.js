@@ -1,22 +1,25 @@
 export const addInput = (props) => {
     return (dispatch, getState) => {
+        console.log(dispatch);
         dispatch({type: 'Add Input', i: props.i, command: props.command, address: props.address});
 
         switch(props.command) {
             case "GD":
                 console.log('GD');
-                if(props.address === "") {
+                if(props.address === undefined) {
+                    //return(<AddressAlert show="true" />)
                     console.log("Address Required");
+                    dispatch({type:"ADD_NOT_FOUND"});
                 } else {
                     console.log("Execute GD");
                 }
                 break;
             case "PD":
                 console.log('PD');
-                if(props.address === "") {
+                if(props.address === undefined) {
                     console.log("Address Required");
                 } else {
-                    console.log("Execute PD");
+                    console.log("Execute PD: ",props.address);
                 }
                 break;
             default:
@@ -26,8 +29,16 @@ export const addInput = (props) => {
 }
 
 export const reset = (props) => {
-    console.log('Reset Request')
     return (dispatch, getState) => {
+        console.log(dispatch);
+        console.log('Dispatching reset req');
         dispatch({type: 'Reset'});
+        console.log('Request Dispatched');
+    }
+}
+
+export const setDataInMemory = (props) => {
+    return (dispatch, getState) => {
+        dispatch({type: 'DATA_TO_MEMORY', data: props.data}, );
     }
 }
