@@ -3,28 +3,28 @@ export const addInput = (props) => {
         console.log(dispatch);
         dispatch({type: 'Add Input', i: props.i, command: props.command, address: props.address});
 
-        switch(props.command) {
-            case "GD":
-                console.log('GD');
-                if(props.address === undefined) {
-                    //return(<AddressAlert show="true" />)
-                    console.log("Address Required");
-                    dispatch({type:"ADD_NOT_FOUND"});
-                } else {
-                    console.log("Execute GD");
-                }
-                break;
-            case "PD":
-                console.log('PD');
-                if(props.address === undefined) {
-                    console.log("Address Required");
-                } else {
-                    console.log("Execute PD: ",props.address);
-                }
-                break;
-            default:
-                console.log('Error');
-        }
+        // switch(props.command) {
+        //     case "GD":
+        //         console.log('GD');
+        //         if(props.address === undefined) {
+        //             //return(<AddressAlert show="true" />)
+        //             console.log("Address Required");
+        //             dispatch({type:"ADD_NOT_FOUND"});
+        //         } else {
+        //             console.log("Execute GD");
+        //         }
+        //         break;
+        //     case "PD":
+        //         console.log('PD');
+        //         if(props.address === undefined) {
+        //             console.log("Address Required");
+        //         } else {
+        //             console.log("Execute PD: ",props.address);
+        //         }
+        //         break;
+        //     default:
+        //         console.log('Error');
+        // }
     }
 }
 

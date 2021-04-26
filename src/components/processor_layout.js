@@ -158,6 +158,9 @@ const ProcessorLayout = (props) => {
             <p style={{fontWeight:'bold'}}>Input Data: </p>
             <InputDataField />
         </div>
+        <div style={{margin:10, padding:10}}>
+            <Button variant="outline-success">Run</Button>
+        </div>
         </>
     );
 }
