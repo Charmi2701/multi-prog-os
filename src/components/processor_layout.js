@@ -98,10 +98,11 @@ const ProcessorLayout = (props) => {
                          title="Select Instruction"
                          onChange={(e) => handleSelect(e, i)}
                          inline
-                         defaultValue="GD"
+                         defaultValue="Select"
                          value={inputs.instruction[i]}
                          disabled={i === noOfInstructions ? false : true}
                         >
+                            <option>Select</option>
                             <option>GD</option>
                             <option>PD</option>
                             <option>LR</option>
@@ -148,6 +149,23 @@ const ProcessorLayout = (props) => {
                 <Button variant="outline-success" style={{marginLeft:10}}>Submit</Button>
             </Form>);
     }
+    const handleRun = () => {
+        for(let i = 0; i <= noOfInstructions; i++) {
+            switch(inputs.instruction[i]){
+                case "GD":
+                    console.log(inputs.instruction[i]);
+                    break;
+                case "PD":
+                    console.log(inputs.instruction[i]);
+                    break;
+                default:
+                    if(i == noOfInstructions)
+                        console.log("Last not understood");
+                    else
+                        console.log("Unexpected");
+            }
+        }
+    }
     return (
         <>
         <div style={{margin:10, borderStyle:'solid', padding:10, borderColor:'#D9A63F'}}>
@@ -159,7 +177,7 @@ const ProcessorLayout = (props) => {
             <InputDataField />
         </div>
         <div style={{margin:10, padding:10}}>
-            <Button variant="outline-success">Run</Button>
+            <Button variant="outline-success" onClick={handleRun}>Run</Button>
         </div>
         </>
     );

@@ -1,7 +1,7 @@
 import jQuery from 'jquery'
 
 const initState = {
-    instruction: ['GD'],
+    instruction: ['Select'],
     address: [""],
     memory: Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => ["-","-","-","-"])),
     memoryStatus: [1,1,0,0,0,0,0,0,0,0],
@@ -12,7 +12,7 @@ const initState = {
 }
 
 const resetState = {
-    instruction: ['GD'],
+    instruction: ['Select'],
     address: [""],
     memory: Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => ["-","-","-","-"])),
     memoryStatus: [1,1,0,0,0,0,0,0,0,0],
