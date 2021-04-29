@@ -48,3 +48,9 @@ export const gd = (props) => {
         dispatch({type: 'EXECUTE_GD', gdAddress: props.address});
     }
 }
+
+export const pd = (props) => {
+    return(dispatch, getState) => {
+        dispatch({type: 'EXECUTE_PD', pdAddress: props.address});
+    }
+}

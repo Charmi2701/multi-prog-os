@@ -3,24 +3,26 @@ import jQuery from 'jquery'
 const initState = {
     instruction: ['Select'],
     address: [""],
-    memory: Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => ["-","-","-","-"])),
+    memory: Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => [" "," "," "," "])),
     memoryStatus: [1,1,0,0,0,0,0,0,0,0],
     dataLines: 0,
     dataPointer: [1,0,1],
     addressAlert: false,
     inputData: [],
+    outputData: [],
     gdcount: 0,
 }
 
 const resetState = {
     instruction: ['Select'],
     address: [""],
-    memory: Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => ["-","-","-","-"])),
+    memory: Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => [" "," "," "," "])),
     memoryStatus: [1,1,0,0,0,0,0,0,0,0],
     instPointer: [0,0,0],
     dataPointer: [1,0,1],
     addressAlert: false,
     inputData: [],
+    outputData: [],
     gdcount: 0
 }
 
@@ -87,6 +89,24 @@ const inputReducer = (state = initState, action) => {
             return {
                 ...state,
                 gdcount: state.gdcount + 1 
+            };
+        case 'EXECUTE_PD':
+            console.log("Executing PD");
+            var x = "";
+            var b = Math.floor(action.pdAddress/10);
+            for(let i in state.memory[b]) {
+                //console.log(state.memory[b][i]);
+                for(let j in state.memory[b][i]) {
+                    x += state.memory[b][i][j];
+                }
+            }
+            //console.log("Output Data:",x);
+            return {
+                ...state,
+                outputData: [
+                    ...state.outputData,
+                    x
+                ]
             };
         case 'Reset':
             console.log('Reset')
