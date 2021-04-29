@@ -3,26 +3,25 @@ import { Form, FormControl, InputGroup, Button, Alert } from 'react-bootstrap';
 import {connect} from 'react-redux';
 import { addInput, reset, setDataInMemory } from '../actions/input_actions';
 
-const AddressAlert = (props) => {
-    const [show, setShow] = useState(props.show);
-    if(show) {
-        return (
-            <Alert variant="danger" onClose={() => {reset()}} dismissible>
-                <Alert.Heading>No Address Provided</Alert.Heading>
-                <p>An address should be provided with this instruction. Please rewrite the program correctly</p>
-            </Alert>
-        )
-    } else {
-        return (<></>)
-    }
-}
-
 const ProcessorLayout = (props) => {
     console.log(props);
     var commands = [];
     var addresses = [];
     const {inputs} = props;
     const [noOfInstructions, setNoOfInstructions] = useState(0);
+    const [show, setShow] = useState(false);
+    const AddressAlert = () => {
+        if(show) {
+            return (
+                <Alert variant="danger" onClose={() => {setShow(false); setNoOfInstructions(0); props.reset();}} dismissible>
+                    <Alert.Heading>No Address Provided</Alert.Heading>
+                    <p>Address not provided for some intructions. Please rewrite the program correctly</p>
+                </Alert>
+            )
+        } else {
+            return (<></>)
+        }
+    }
     const InputDataField = () => {
         const [data, setData] = useState("");
         const handleChange = (e) => {
@@ -132,7 +131,7 @@ const ProcessorLayout = (props) => {
                                     Add
                                 </Button>
                             </InputGroup.Append>
-                            <AddressAlert show={inputs.addressAlert} reset={props.reset}/>
+                            <AddressAlert />
                             </>
                             ) : (
                                 <span style={{width:60}}> </span>
@@ -153,19 +152,71 @@ const ProcessorLayout = (props) => {
         for(let i = 0; i <= noOfInstructions; i++) {
             switch(inputs.instruction[i]){
                 case "GD":
-                    console.log(inputs.instruction[i]);
+                    //console.log(inputs.address[i]);
+                    if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
+                        console.log("Run GD")
+                    } else {
+                        console.log("Address not found")
+                        setShow(true);
+                    }
                     break;
                 case "PD":
-                    console.log(inputs.instruction[i]);
+                    //console.log(inputs.instruction[i]);
+                    if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
+                        console.log("Run PD")
+                    } else {
+                        console.log("Address not found")
+                        setShow(true);
+                    }
+                    break;
+                case "LR":
+                    //console.log(inputs.instruction[i]);
+                    if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
+                        console.log("Run LR")
+                    } else {
+                        console.log("Address not found")
+                        setShow(true);
+                    }
+                    break;
+                case "SR":
+                    //console.log(inputs.instruction[i]);
+                    if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
+                        console.log("Run SR")
+                    } else {
+                        console.log("Address not found")
+                        setShow(true);
+                    }
+                    break;
+                case "CR":
+                    //console.log(inputs.instruction[i]);
+                    if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
+                        console.log("Run CR")
+                    } else {
+                        console.log("Address not found")
+                        setShow(true);
+                    }
+                    break;
+                case "BT":
+                    //console.log(inputs.instruction[i]);
+                    if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
+                        console.log("Run BT")
+                    } else {
+                        console.log("Address not found")
+                        setShow(true);
+                    }
+                    break;
+                case "H":
+                    console.log("Halt program");
                     break;
                 default:
                     if(i == noOfInstructions)
-                        console.log("Last not understood");
+                        console.log("End of Program");
                     else
-                        console.log("Unexpected");
+                        console.log("Error in Program execution");
             }
         }
     }
+    
     return (
         <>
         <div style={{margin:10, borderStyle:'solid', padding:10, borderColor:'#D9A63F'}}>
