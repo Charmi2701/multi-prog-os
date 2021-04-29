@@ -30,7 +30,7 @@ const inputReducer = (state = initState, action) => {
             //console.log(action)
             //return state;
             //console.log(state.memory.slice(1,2)[0][5][3]);
-            if(action.command !== "H") {
+            if(action.command !== "H" && action.command !== "Select") {
                 let x = Math.floor(action.i/10);
                 let y = action.i%10;
                 //console.log(Math.floor(x));
@@ -42,9 +42,9 @@ const inputReducer = (state = initState, action) => {
                 state.memory[x][y][1] = action.command.slice(1);
                 //state.instPointer[2] += 1;
                 //console.log(action.address.slice(0,1));
-                state.memory[x][y][2] = action.address > 10 ?(action.address/10 ? action.address/10 : "-") : "";
+                state.memory[x][y][2] = action.address >= 10 ?(action.address/10 ? action.address/10 : "-") : "";
                 //state.instPointer[2] += 1;
-                state.memory[x][y][3] = action.address > 10 ? (action.address%10 ? action.address%10 : 0) : action.address;
+                state.memory[x][y][3] = action.address >= 10 ? (action.address%10 ? action.address%10 : 0) : action.address;
                 state.dataPointer[0] = x + 1;
                 // state.instPointer[2] = 0;
             }
