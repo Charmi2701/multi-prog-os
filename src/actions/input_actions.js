@@ -42,3 +42,9 @@ export const setDataInMemory = (props) => {
         dispatch({type: 'DATA_TO_MEMORY', data: props.data}, );
     }
 }
+
+export const gd = (props) => {
+    return(dispatch, getState) => {
+        dispatch({type: 'EXECUTE_GD', gdAddress: props.address});
+    }
+}

@@ -9,6 +9,7 @@ const initState = {
     dataPointer: [1,0,1],
     addressAlert: false,
     inputData: [],
+    gdcount: 0,
 }
 
 const resetState = {
@@ -20,33 +21,20 @@ const resetState = {
     dataPointer: [1,0,1],
     addressAlert: false,
     inputData: [],
+    gdcount: 0
 }
 
 const inputReducer = (state = initState, action) => {
     switch(action.type) {
         case 'Add Input':
-            //console.log('Adding Input')
-            //console.log(state);
-            //console.log(action)
-            //return state;
-            //console.log(state.memory.slice(1,2)[0][5][3]);
             if(action.command !== "H" && action.command !== "Select") {
                 let x = Math.floor(action.i/10);
                 let y = action.i%10;
-                //console.log(Math.floor(x));
-                //console.log(y);
-                // console.log(action.i);
                 state.memory[x][y][0] = action.command.slice(0,1);
-                //state.instPointer[2] += 1;
-                //console.log(state.instPointer[2]);
                 state.memory[x][y][1] = action.command.slice(1);
-                //state.instPointer[2] += 1;
-                //console.log(action.address.slice(0,1));
                 state.memory[x][y][2] = action.address >= 10 ?(action.address/10 ? action.address/10 : "-") : "";
-                //state.instPointer[2] += 1;
                 state.memory[x][y][3] = action.address >= 10 ? (action.address%10 ? action.address%10 : 0) : action.address;
                 state.dataPointer[0] = x + 1;
-                // state.instPointer[2] = 0;
             }
             return {
                 ...state,
@@ -72,6 +60,33 @@ const inputReducer = (state = initState, action) => {
             return {
                 ...state,
                 addressAlert: true
+            };
+        case 'EXECUTE_GD':
+            console.log("Executing GD");
+            var x = state.inputData[state.gdcount];
+            var counter1 = Math.floor(action.gdAddress/10);
+            var counter2 = 0;
+            var counter3 = 0;
+            console.log(x);
+            for(let ch in x) {
+                //console.log(x[ch]);
+                state.memory[counter1][counter2][counter3] = x[ch];
+                counter3++;
+                if(counter3 >= 4) {
+                    counter2++;
+                    counter3 = 0;
+                }
+                if(counter2 >= 10) {
+                    console.log("Block exceeded");
+                    return {
+                        ...state,
+                        gdcount: state.gdcount + 1 
+                    };
+                }
+            }
+            return {
+                ...state,
+                gdcount: state.gdcount + 1 
             };
         case 'Reset':
             console.log('Reset')
