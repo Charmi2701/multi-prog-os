@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, FormControl, InputGroup, Button, Alert } from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { addInput, reset, setDataInMemory, gd, pd, lr, sr } from '../actions/input_actions';
+import { addInput, reset, setDataInMemory, gd, pd, lr, sr, cr } from '../actions/input_actions';
 
 const ProcessorLayout = (props) => {
     console.log(props);
@@ -196,6 +196,7 @@ const ProcessorLayout = (props) => {
                     //console.log(inputs.instruction[i]);
                     if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
                         console.log("Run CR")
+                        props.cr({address: inputs.address[i]});
                     } else {
                         console.log("Address not found")
                         setShow(true);
@@ -252,6 +253,7 @@ const mapDispatchToProps = (dispatch) => {
         pd: (data) => dispatch(pd(data)),
         lr: (data) => dispatch(lr(data)),
         sr: (data) => dispatch(sr(data)),
+        cr: (data) => dispatch(cr(data)),
     }
 }
 

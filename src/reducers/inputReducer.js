@@ -36,10 +36,12 @@ const inputReducer = (state = initState, action) => {
             if(action.command !== "H" && action.command !== "Select") {
                 let x = Math.floor(action.i/10);
                 let y = action.i%10;
+                let x2 = Math.floor(action.address/10);
+                let y2 = action.address%10;
                 state.memory[x][y][0] = action.command.slice(0,1);
                 state.memory[x][y][1] = action.command.slice(1);
-                state.memory[x][y][2] = action.address >= 10 ?(action.address/10 ? action.address/10 : "-") : "";
-                state.memory[x][y][3] = action.address >= 10 ? (action.address%10 ? action.address%10 : 0) : action.address;
+                state.memory[x][y][2] = action.address >= 10 ?(x2 ? x2 : "-") : "";
+                state.memory[x][y][3] = action.address >= 10 ? (y2 ? y2 : 0) : action.address;
                 state.dataPointer[0] = x + 1;
             }
             return {
@@ -136,6 +138,23 @@ const inputReducer = (state = initState, action) => {
             return {
                 ...state,
             };
+        case 'EXECUTE_CR':
+            console.log('Executing CR');
+            var x = Math.floor(action.crAddress/10);
+            var y = action.crAddress%10;
+            var result = 0;
+            if(
+                state.memory[x][y][0] === state.register[0] &&
+                state.memory[x][y][1] === state.register[1] &&
+                state.memory[x][y][2] === state.register[2] &&
+                state.memory[x][y][3] === state.register[3]
+            ) {
+                result = 1;
+            }
+            return {
+                ...state,
+                toggleReg: result,
+            }
         case 'Reset':
             console.log('Reset')
             //console.log(initState);

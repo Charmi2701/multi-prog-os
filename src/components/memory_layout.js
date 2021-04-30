@@ -96,7 +96,7 @@ const MemoryLayout = (props) => {
                    <tbody>
                        <tr>
                            <th style={{width:150}}>C</th>
-                           <td style={{width:150}}> </td>
+                           <td style={{width:150}}>{props.toggleReg}</td>
                        </tr>
                    </tbody>
                </Table>
@@ -116,6 +116,7 @@ const MemoryLayout = (props) => {
 const mapStateToProps = (state) => ({
     memory: {...state.inputs.memory, modalOpen:true},
     register: {...state.inputs.register, modalOpen:true},
+    toggleReg: state.inputs.toggleReg,
 });
 
 export default connect(mapStateToProps)(MemoryLayout);

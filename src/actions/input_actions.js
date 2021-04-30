@@ -66,3 +66,9 @@ export const sr = (props) => {
         dispatch({type: 'EXECUTE_SR', srAddress: props.address});
     }
 }
+
+export const cr = (props) => {
+    return(dispatch, getState) => {
+        dispatch({type: 'EXECUTE_CR', crAddress: props.address});
+    }
+}
