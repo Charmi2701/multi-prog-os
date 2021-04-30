@@ -54,3 +54,9 @@ export const pd = (props) => {
         dispatch({type: 'EXECUTE_PD', pdAddress: props.address});
     }
 }
+
+export const lr = (props) => {
+    return(dispatch, getState) => {
+        dispatch({type: 'EXECUTE_LR', lrAddress: props.address});
+    }
+}

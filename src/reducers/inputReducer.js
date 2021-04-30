@@ -11,6 +11,8 @@ const initState = {
     inputData: [],
     outputData: [],
     gdcount: 0,
+    register: [" "," ", " ", " "],
+    toggleReg: 0,
 }
 
 const resetState = {
@@ -23,7 +25,9 @@ const resetState = {
     addressAlert: false,
     inputData: [],
     outputData: [],
-    gdcount: 0
+    gdcount: 0,
+    register: [" "," ", " ", " "],
+    toggleReg: 0,
 }
 
 const inputReducer = (state = initState, action) => {
@@ -107,6 +111,19 @@ const inputReducer = (state = initState, action) => {
                     ...state.outputData,
                     x
                 ]
+            };
+        case 'EXECUTE_LR':
+            console.log('Executing LR');
+            var x = Math.floor(action.lrAddress/10);
+            var y = action.lrAddress%10;
+            return {
+                ...state,
+                register: [
+                    state.memory[x][y][0],
+                    state.memory[x][y][1],
+                    state.memory[x][y][2],
+                    state.memory[x][y][3],
+                ],
             };
         case 'Reset':
             console.log('Reset')

@@ -68,9 +68,10 @@ const MemoryLayout = (props) => {
                    <tbody style={{width:200}}>
                        <tr>
                            <th style={{width:150}}>R</th>
-                           <td style={{width:150}}> </td>
-                           <td style={{width:150}}> </td>
-                           <td style={{width:150}}> </td>
+                           <td style={{width:150}}>{props.register[0]}</td>
+                           <td style={{width:150}}>{props.register[1]}</td>
+                           <td style={{width:150}}>{props.register[2]}</td>
+                           <td style={{width:150}}>{props.register[3]}</td>
                        </tr>
                    </tbody>
                </Table>
@@ -78,6 +79,7 @@ const MemoryLayout = (props) => {
                    <tbody>
                        <tr>
                            <th style={{width:150}}>IR</th>
+                           <td style={{width:150}}> </td>
                            <td style={{width:150}}> </td>
                            <td style={{width:150}}> </td>
                            <td style={{width:150}}> </td>
@@ -111,6 +113,9 @@ const MemoryLayout = (props) => {
         )
 }
 
+const mapStateToProps = (state) => ({
+    memory: {...state.inputs.memory, modalOpen:true},
+    register: {...state.inputs.register, modalOpen:true},
+});
 
-
-export default MemoryLayout;
+export default connect(mapStateToProps)(MemoryLayout);
