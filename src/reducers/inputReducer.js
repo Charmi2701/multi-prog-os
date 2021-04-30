@@ -125,6 +125,17 @@ const inputReducer = (state = initState, action) => {
                     state.memory[x][y][3],
                 ],
             };
+        case 'EXECUTE_SR':
+            console.log('Executing SR');
+            var x = Math.floor(action.srAddress/10);
+            var y = action.srAddress%10;
+            state.memory[x][y][0] = state.register[0];
+            state.memory[x][y][1] = state.register[1];
+            state.memory[x][y][2] = state.register[2];
+            state.memory[x][y][3] = state.register[3];
+            return {
+                ...state,
+            };
         case 'Reset':
             console.log('Reset')
             //console.log(initState);
