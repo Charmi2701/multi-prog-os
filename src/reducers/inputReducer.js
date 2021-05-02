@@ -14,6 +14,7 @@ const initState = {
     register: [" "," ", " ", " "],
     toggleReg: 0,
     ic: 0,
+    instructionReg: ["-", "-", "-", "-"]
 
 }
 
@@ -31,7 +32,7 @@ const resetState = {
     register: [" "," ", " ", " "],
     toggleReg: 0,
     ic: 0,
-
+    instructionReg: ["-", "-", "-", "-"]
 }
 
 const inputReducer = (state = initState, action) => {
@@ -81,6 +82,10 @@ const inputReducer = (state = initState, action) => {
                 addressAlert: true
             };
         case 'EXECUTE_GD':
+            state.instructionReg[0] = "G";
+            state.instructionReg[1] = "D";
+            state.instructionReg[2] = Math.floor(action.gdAddress/10);
+            state.instructionReg[3] = action.gdAddress%10;
             console.log("GD: ",action.i,",",state.ic);
             if(action.i === state.ic) {
                 console.log("Executing GD");
@@ -115,6 +120,10 @@ const inputReducer = (state = initState, action) => {
                 return state;
             }
         case 'EXECUTE_PD':
+            state.instructionReg[0] = "P";
+            state.instructionReg[1] = "D";
+            state.instructionReg[2] = Math.floor(action.pdAddress/10);
+            state.instructionReg[3] = action.pdAddress%10;
             console.log("PD: ",action.i,",",state.ic);
             if (action.i === state.ic) {
                 console.log("Executing PD");
@@ -139,6 +148,10 @@ const inputReducer = (state = initState, action) => {
                 return state;
             }
         case 'EXECUTE_LR':
+            state.instructionReg[0] = "L";
+            state.instructionReg[1] = "R";
+            state.instructionReg[2] = Math.floor(action.lrAddress/10);
+            state.instructionReg[3] = action.lrAddress%10;
             console.log("LR: ",action.i,",",state.ic);
             if (action.i === state.ic) {
                 console.log('Executing LR');
@@ -158,6 +171,10 @@ const inputReducer = (state = initState, action) => {
                 return state;
             }
         case 'EXECUTE_SR':
+            state.instructionReg[0] = "S";
+            state.instructionReg[1] = "R";
+            state.instructionReg[2] = Math.floor(action.srAddress/10);
+            state.instructionReg[3] = action.srAddress%10;
             console.log("SR: ",action.i,",",state.ic);
             if (action.i === state.ic) {
                 console.log('Executing SR');
@@ -175,6 +192,10 @@ const inputReducer = (state = initState, action) => {
                 return state;
             }
         case 'EXECUTE_CR':
+            state.instructionReg[0] = "C";
+            state.instructionReg[1] = "R";
+            state.instructionReg[2] = Math.floor(action.crAddress/10);
+            state.instructionReg[3] = action.crAddress%10;
             console.log("CR: ",action.i,",",state.ic);
             if(action.i === state.ic) {
                 console.log('Executing CR');
@@ -198,6 +219,10 @@ const inputReducer = (state = initState, action) => {
                 return state;
             }
         case 'EXECUTE_BT':
+            state.instructionReg[0] = "B";
+            state.instructionReg[1] = "T";
+            state.instructionReg[2] = Math.floor(action.btAddress/10);
+            state.instructionReg[3] = action.btAddress%10;
             if (action.i === state.ic && state.toggleReg === 1) {
                 return {
                     ...state,
@@ -207,6 +232,10 @@ const inputReducer = (state = initState, action) => {
                 return state;
             }
         case 'EXECUTE_H':
+            state.instructionReg[0] = "H";
+            state.instructionReg[1] = " ";
+            state.instructionReg[2] = " ";
+            state.instructionReg[3] = " ";
             if (action.i === state.ic) {
                 console.log('Executing H');
                 return {

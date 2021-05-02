@@ -79,10 +79,10 @@ const MemoryLayout = (props) => {
                    <tbody>
                        <tr>
                            <th style={{width:150}}>IR</th>
-                           <td style={{width:150}}> </td>
-                           <td style={{width:150}}> </td>
-                           <td style={{width:150}}> </td>
-                           <td style={{width:150}}> </td>
+                           <td style={{width:150}}>{props.instructionReg[0]}</td>
+                           <td style={{width:150}}>{props.instructionReg[1]}</td>
+                           <td style={{width:150}}>{props.instructionReg[2]}</td>
+                           <td style={{width:150}}>{props.instructionReg[3]}</td>
                        </tr>
                    </tbody>
                </Table>
@@ -118,6 +118,7 @@ const mapStateToProps = (state) => ({
     register: {...state.inputs.register, modalOpen:true},
     toggleReg: state.inputs.toggleReg,
     ic: state.inputs.ic,
+    instructionReg: state.inputs.instructionReg,
 });
 
 
