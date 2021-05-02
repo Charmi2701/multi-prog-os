@@ -197,12 +197,25 @@ const inputReducer = (state = initState, action) => {
             } else {
                 return state;
             }
+        case 'EXECUTE_BT':
+            if (action.i === state.ic && state.toggleReg === 1) {
+                return {
+                    ...state,
+                    ic: action.btAddress,
+                }
+            } else {
+                return state;
+            }
         case 'EXECUTE_H':
-            console.log('Executing H');
-            return {
-                ...state,
-                ic: 100,
-            };
+            if (action.i === state.ic) {
+                console.log('Executing H');
+                return {
+                    ...state,
+                    ic: 100,
+                };
+            } else {
+                return state;
+            }
         case 'Reset':
             console.log('Reset')
             //console.log(initState);

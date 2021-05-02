@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Form, FormControl, InputGroup, Button, Alert } from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { addInput, reset, setDataInMemory, gd, pd, lr, sr, cr, h } from '../actions/input_actions';
+import { addInput, reset, setDataInMemory, gd, pd, lr, sr, cr, bt, h } from '../actions/input_actions';
 
 const ProcessorLayout = (props) => {
     console.log(props.inputs);
@@ -90,9 +90,7 @@ const ProcessorLayout = (props) => {
         for(let i = 0; i <= noOfInstructions; i++) {
             //console.log("Hello World");
             fields.push(
-                <Form.Group 
-                 controlId={"inputInstruction"+toString(i)}
-                 key={i}
+                <Form.Group key={i}
                 >
                     <InputGroup className="mb-3" custom>
                         <Form.Control
@@ -217,6 +215,7 @@ const ProcessorLayout = (props) => {
                     //console.log(inputs.instruction[i]);
                     if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
                         console.log("Run BT")
+                        props.bt({address: inputs.address[i], i:i});
                     } else {
                         console.log("Address not found")
                         setShow(true);
@@ -224,7 +223,7 @@ const ProcessorLayout = (props) => {
                     break;
                 case "H":
                     console.log("Halt program");
-                    props.h();
+                    props.h({i:i});
                     break;
                 default:
                     if(i == noOfInstructions)
@@ -266,6 +265,7 @@ const mapDispatchToProps = (dispatch) => {
         lr: (data) => dispatch(lr(data)),
         sr: (data) => dispatch(sr(data)),
         cr: (data) => dispatch(cr(data)),
+        bt: (data) => dispatch(bt(data)),
         h: (data) => dispatch(h(data)),
     }
 }

@@ -73,8 +73,14 @@ export const cr = (props) => {
     }
 }
 
+export const bt = (props) => {
+    return(dispatch, getState) => {
+        dispatch({type: 'EXECUTE_BT', btAddress: props.address, i:props.i});
+    }
+}
+
 export const h = (props) => {
     return (dispatch, getState) => {
-        dispatch({type: 'EXECUTE_H'});
+        dispatch({type: 'EXECUTE_H', i:props.i});
     }
 }
