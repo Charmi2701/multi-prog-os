@@ -108,7 +108,8 @@ const inputReducer = (state = initState, action) => {
                 }
                 return {
                     ...state,
-                    gdcount: state.gdcount + 1 
+                    gdcount: state.gdcount + 1,
+                    ic: state.ic + 1,
                 };
             } else {
                 return state;

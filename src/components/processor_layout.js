@@ -98,6 +98,7 @@ const ProcessorLayout = (props) => {
                         <Form.Control
                          aria-describedby="select-inst"
                          as="select"
+                         id="category-type"
                          custom
                          title="Select Instruction"
                          onChange={(e) => handleSelect(e, i)}
