@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Form, FormControl, InputGroup, Button, Alert } from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { addInput, reset, setDataInMemory, gd, pd, lr, sr, cr } from '../actions/input_actions';
+import { addInput, reset, setDataInMemory, gd, pd, lr, sr, cr, h } from '../actions/input_actions';
 
 const ProcessorLayout = (props) => {
-    console.log(props);
+    console.log(props.inputs);
+    //const ic = useRef(props.inputs.ic)
+    // useEffect(() => {
+    //     ic.current=props.inputs.ic
+    //     console.log("From useEffet: ",props.inputs.ic)
+    // }, [props])
     var commands = [];
     var addresses = [];
     const {inputs} = props;
@@ -149,13 +154,18 @@ const ProcessorLayout = (props) => {
             </Form>);
     }
     const handleRun = () => {
+        //console.log("Run1:",ic.current);
+        //await props.h();
+        //console.log("Run2:",ic.current);
+        //console.log(inputs.ic);
+        
         for(let i = 0; i <= noOfInstructions; i++) {
             switch(inputs.instruction[i]){
                 case "GD":
                     //console.log(inputs.address[i]);
                     if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
                         console.log("Run GD");
-                        props.gd({address: inputs.address[i]});
+                        props.gd({address: inputs.address[i], i:i});
 
                     } else {
                         console.log("Address not found")
@@ -166,7 +176,7 @@ const ProcessorLayout = (props) => {
                     //console.log(inputs.instruction[i]);
                     if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
                         console.log("Run PD");
-                        props.pd({address: inputs.address[i]});
+                        props.pd({address: inputs.address[i], i:i});
                     } else {
                         console.log("Address not found")
                         setShow(true);
@@ -176,7 +186,7 @@ const ProcessorLayout = (props) => {
                     //console.log(inputs.instruction[i]);
                     if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
                         console.log("Run LR");
-                        props.lr({address: inputs.address[i]});
+                        props.lr({address: inputs.address[i], i:i});
                     } else {
                         console.log("Address not found")
                         setShow(true);
@@ -186,7 +196,7 @@ const ProcessorLayout = (props) => {
                     //console.log(inputs.instruction[i]);
                     if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
                         console.log("Run SR");
-                        props.sr({address: inputs.address[i]});
+                        props.sr({address: inputs.address[i], i:i});
                     } else {
                         console.log("Address not found")
                         setShow(true);
@@ -196,7 +206,7 @@ const ProcessorLayout = (props) => {
                     //console.log(inputs.instruction[i]);
                     if(inputs.address[i] !== "" && inputs.address[i] !== undefined) {
                         console.log("Run CR")
-                        props.cr({address: inputs.address[i]});
+                        props.cr({address: inputs.address[i], i:i});
                     } else {
                         console.log("Address not found")
                         setShow(true);
@@ -213,6 +223,7 @@ const ProcessorLayout = (props) => {
                     break;
                 case "H":
                     console.log("Halt program");
+                    props.h();
                     break;
                 default:
                     if(i == noOfInstructions)
@@ -234,7 +245,7 @@ const ProcessorLayout = (props) => {
             <InputDataField />
         </div>
         <div style={{margin:10, padding:10}}>
-            <Button variant="outline-success" onClick={handleRun}>Run</Button>
+            <Button variant="outline-success" onClick={() => {handleRun();}}>Run</Button>
         </div>
         </>
     );
@@ -254,6 +265,7 @@ const mapDispatchToProps = (dispatch) => {
         lr: (data) => dispatch(lr(data)),
         sr: (data) => dispatch(sr(data)),
         cr: (data) => dispatch(cr(data)),
+        h: (data) => dispatch(h(data)),
     }
 }
 

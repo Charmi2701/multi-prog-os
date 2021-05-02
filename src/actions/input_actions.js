@@ -45,30 +45,36 @@ export const setDataInMemory = (props) => {
 
 export const gd = (props) => {
     return(dispatch, getState) => {
-        dispatch({type: 'EXECUTE_GD', gdAddress: props.address});
+        dispatch({type: 'EXECUTE_GD', gdAddress: props.address, i:props.i});
     }
 }
 
 export const pd = (props) => {
     return(dispatch, getState) => {
-        dispatch({type: 'EXECUTE_PD', pdAddress: props.address});
+        dispatch({type: 'EXECUTE_PD', pdAddress: props.address, i:props.i});
     }
 }
 
 export const lr = (props) => {
     return(dispatch, getState) => {
-        dispatch({type: 'EXECUTE_LR', lrAddress: props.address});
+        dispatch({type: 'EXECUTE_LR', lrAddress: props.address, i:props.i});
     }
 }
 
 export const sr = (props) => {
     return(dispatch, getState) => {
-        dispatch({type: 'EXECUTE_SR', srAddress: props.address});
+        dispatch({type: 'EXECUTE_SR', srAddress: props.address, i:props.i});
     }
 }
 
 export const cr = (props) => {
     return(dispatch, getState) => {
-        dispatch({type: 'EXECUTE_CR', crAddress: props.address});
+        dispatch({type: 'EXECUTE_CR', crAddress: props.address, i:props.i});
+    }
+}
+
+export const h = (props) => {
+    return (dispatch, getState) => {
+        dispatch({type: 'EXECUTE_H'});
     }
 }
